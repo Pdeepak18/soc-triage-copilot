@@ -1,0 +1,32 @@
+{
+  "id": "INC-2026-0977",
+  "title": "Business email compromise - finance mailbox",
+  "source": "Microsoft Defender for Office 365",
+  "created_at": "2026-10-19T15:42:00Z",
+  "tags": ["bec", "phishing", "priority-2"],
+  "notes": "Finance reported an unexpected payment request from the CFO's display name.",
+  "alerts": [
+    {
+      "rule": "Phishing email delivered to inbox",
+      "severity": "high",
+      "timestamp": "2026-10-19T15:38:02Z",
+      "description": "Message from cfo-office@secure-mailbox.top with subject 'Wire transfer before EOD' delivered to finance@corp.example",
+      "entities": {
+        "user": "finance@corp.example",
+        "domain": "secure-mailbox.top",
+        "ip": "198.51.100.66",
+        "url": "https://secure-mailbox.top/invoice/view"
+      }
+    },
+    {
+      "rule": "Inbox forwarding rule created",
+      "severity": "high",
+      "timestamp": "2026-10-19T15:41:19Z",
+      "description": "New-InboxRule ForwardTo external address from finance mailbox",
+      "entities": {
+        "user": "finance@corp.example",
+        "host": "MBX-07"
+      }
+    }
+  ]
+}

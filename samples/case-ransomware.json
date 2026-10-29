@@ -1,0 +1,44 @@
+{
+  "id": "INC-2026-1014",
+  "title": "Ransomware staging on file server FS-01",
+  "source": "Microsoft Sentinel",
+  "created_at": "2026-10-21T02:14:00Z",
+  "tags": ["ransomware", "priority-1", "file-server"],
+  "notes": "Backup window overlaps the alert time. Confirm whether svc_backup is expected to touch volume shadow copies.",
+  "alerts": [
+    {
+      "rule": "Shadow copy deletion via vssadmin",
+      "severity": "high",
+      "timestamp": "2026-10-21T02:11:12Z",
+      "description": "vssadmin.exe delete shadows /all /quiet executed on FS-01 by CORP\\svc_backup",
+      "entities": {
+        "host": "FS-01",
+        "user": "CORP\\svc_backup",
+        "process": "vssadmin.exe",
+        "ip": "10.20.4.11"
+      }
+    },
+    {
+      "rule": "Ransomware extension burst",
+      "severity": "critical",
+      "timestamp": "2026-10-21T02:13:44Z",
+      "description": "412 files renamed with extension .locked under D:\\Finance within 5 minutes",
+      "entities": {
+        "host": "FS-01",
+        "file": "invoice_2026_q3.pdf.locked",
+        "hash": "3f786850e387550fdab836ed7e6dc881de23001b"
+      }
+    },
+    {
+      "rule": "Defender exclusion added",
+      "severity": "high",
+      "timestamp": "2026-10-21T02:10:03Z",
+      "description": "Add-MpPreference -ExclusionPath D:\\Finance executed by powershell.exe",
+      "entities": {
+        "host": "FS-01",
+        "user": "CORP\\svc_backup",
+        "process": "powershell.exe"
+      }
+    }
+  ]
+}
