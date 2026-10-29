@@ -1,0 +1,33 @@
+[build-system]
+requires = ["setuptools>=68"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "soc-triage-copilot"
+version = "0.1.0"
+description = "Turn raw SIEM alerts into a structured, ATT&CK-mapped triage note"
+readme = "README.md"
+requires-python = ">=3.9"
+license = { text = "MIT" }
+authors = [{ name = "Deepak Pandey" }]
+keywords = ["soc", "triage", "mitre-attack", "incident-response", "automation"]
+classifiers = [
+  "Programming Language :: Python :: 3",
+  "License :: OSI Approved :: MIT License",
+  "Topic :: Security",
+]
+dependencies = []
+
+[project.optional-dependencies]
+llm = ["requests>=2.31"]
+api = ["fastapi>=0.110", "uvicorn>=0.29"]
+dev = ["pytest>=8.0"]
+
+[project.scripts]
+soc-triage-copilot = "soc_triage_copilot.cli:main"
+
+[tool.setuptools.packages.find]
+include = ["soc_triage_copilot*"]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
